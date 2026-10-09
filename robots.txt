@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://egypt-tourism-nu.vercel.app/sitemap.xml
+Sitemap: https://5atwat-masr.vercel.app/sitemap.xml
