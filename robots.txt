@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://rainbow-caramel-d8dadb.netlify.app/sitemap.xml
+Sitemap: https://egypt-tourism-nu.vercel.app/sitemap.xml
