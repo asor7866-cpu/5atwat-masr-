@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>خُطوات مصر — Social Media Dashboard</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel2: #1c2330;
+    --border: #2d3644;
+    --text: #e6edf3;
+    --muted: #8b98a9;
+    --gold: #e8b64c;
+    --gold2: #f5cf7a;
+    --green: #3fb950;
+    --red: #f85149;
+    --blue: #58a6ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    min-height: 100vh;
+  }
+  header {
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+    gap: 12px; padding: 20px 28px;
+    background: linear-gradient(135deg, #10151d 0%, #1a2130 100%);
+    border-bottom: 2px solid var(--border);
+  }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .logo {
+    width: 46px; height: 46px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--gold), #b8860b);
+    display: grid; place-items: center; font-size: 24px; color: #111;
+    font-weight: bold;
+  }
+  h1 { font-size: 22px; }
+  h1 small { display: block; color: var(--muted); font-size: 12px; font-weight: normal; }
+  .health { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+  .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--red); }
+  .dot.ok { background: var(--green); box-shadow: 0 0 8px var(--green); }
+  main { max-width: 1100px; margin: 0 auto; padding: 28px 20px 60px; display: grid; gap: 24px; }
+  .card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 14px; padding: 22px;
+  }
+  .card h2 {
+    font-size: 17px; margin-bottom: 16px; color: var(--gold2);
+    display: flex; align-items: center; gap: 8px;
+  }
+  label { display: block; font-size: 13px; color: var(--muted); margin: 10px 0 5px; }
+  input, select, textarea {
+    width: 100%; padding: 10px 12px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--panel2);
+    color: var(--text); font-size: 14px; outline: none;
+    font-family: inherit;
+  }
+  input:focus, select:focus, textarea:focus { border-color: var(--gold); }
+  textarea { resize: vertical; min-height: 80px; }
+  .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  button {
+    cursor: pointer; border: none; border-radius: 8px;
+    padding: 11px 22px; font-size: 14px; font-weight: bold;
+    background: linear-gradient(135deg, var(--gold), #c99b2e); color: #14100a;
+    transition: filter .15s;
+  }
+  button:hover { filter: brightness(1.12); }
+  button.secondary { background: var(--panel2); color: var(--text); border: 1px solid var(--border); }
+  button.danger {
+    background: transparent; color: var(--red); border: 1px solid var(--red);
+    padding: 4px 10px; font-size: 12px;
+  }
+  .accounts-list, .pick-list { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+  .acc-item, .pick-item {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    background: var(--panel2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 14px; font-size: 14px;
+  }
+  .pick-item label { margin: 0; display: flex; align-items: center; gap: 10px; color: var(--text); cursor: pointer; flex: 1; }
+  .pick-item input[type=checkbox] { width: auto; accent-color: var(--gold); transform: scale(1.25); }
+  .badge {
+    font-size: 11px; padding: 2px 10px; border-radius: 99px;
+    background: rgba(232,182,76,.15); color: var(--gold2); border: 1px solid rgba(232,182,76,.35);
+  }
+  .empty { color: var(--muted); font-size: 13px; text-align: center; padding: 14px; }
+  .note {
+    margin-top: 14px; font-size: 13px; line-height: 1.9; color: #ffd9a0;
+    background: rgba(232,182,76,.08); border: 1px solid rgba(232,182,76,.25);
+    border-radius: 8px; padding: 12px 16px;
+  }
+  .results { margin-top: 18px; display: none; flex-direction: column; gap: 8px; }
+  .result-item {
+    display: flex; align-items: flex-start; gap: 10px; flex-wrap: wrap;
+    background: var(--panel2); border-radius: 8px; padding: 10px 14px;
+    border-right: 4px solid var(--muted); font-size: 13px;
+  }
+  .result-item.success { border-right-color: var(--green); }
+  .result-item.fail { border-right-color: var(--red); }
+  .result-item b { color: var(--text); }
+  .result-item code {
+    direction: ltr; display: inline-block; word-break: break-all;
+    background: #0a0e14; padding: 2px 8px; border-radius: 5px;
+    color: var(--blue); font-size: 12px; max-width: 100%;
+  }
+  .spinner {
+    display: inline-block; width: 14px; height: 14px;
+    border: 2px solid var(--gold); border-top-color: transparent;
+    border-radius: 50%; animation: spin .7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  footer { text-align: center; color: var(--muted); font-size: 12px; padding: 30px 16px; line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo">خ</div>
+    <h1>خُطوات مصر <small>5atwat Masr Social Media Dashboard</small></h1>
+  </div>
+  <div class="health"><span class="dot" id="healthDot"></span><span id="healthText">جاري فحص الاتصال...</span></div>
+</header>
+
+<main>
+
+  <!-- إدارة الحسابات -->
+  <section class="card">
+    <h2>👤 الحسابات</h2>
+    <div class="row">
+      <div>
+        <label for="platform">المنصة</label>
+        <select id="platform" onchange="renderMetaFields()">
+          <option value="facebook">Facebook (صفحة)</option>
+          <option value="instagram">Instagram (Business)</option>
+          <option value="threads">Threads</option>
+          <option value="tiktok">TikTok</option>
+          <option value="youtube">YouTube</option>
+          <option value="x">X (Twitter)</option>
+          <option value="whatsapp">WhatsApp Business</option>
+        </select>
+      </div>
+      <div>
+        <label for="accountName">اسم الحساب (عندك)</label>
+        <input id="accountName" placeholder="مثال: حساب انستجرام الرئيسي" />
+      </div>
+      <div>
+        <label for="token">Access Token</label>
+        <input id="token" type="password" placeholder="EAAG... / ya29...." dir="ltr" />
+      </div>
+    </div>
+    <div id="metaFields" class="row"></div>
+    <div style="margin-top:16px"><button onclick="addAccount()">➕ إضافة الحساب</button></div>
+    <div class="note" id="platformNote" style="display:none"></div>
+    <div class="accounts-list" id="accountsList"></div>
+  </section>
+
+  <!-- النشر -->
+  <section class="card">
+    <h2>🚀 نشر محتوى</h2>
+    <label>اختار الحسابات اللي عايز تنشر فيها (أكتر من واحد مع بعض)</label>
+    <div class="pick-list" id="pickList"></div>
+
+    <div class="row" style="margin-top:16px">
+      <div>
+        <label for="kind">نوع المحتوى</label>
+        <select id="kind">
+          <option value="post">بوست / تغريدة</option>
+          <option value="story">ستوري (Instagram)</option>
+          <option value="reel">ريلز (Instagram)</option>
+          <option value="video">فيديو</option>
+        </select>
+      </div>
+      <div>
+        <label for="mediaUrl">رابط الصورة/الفيديو (Public URL) — مطلوب للفيديو والستوري</label>
+        <input id="mediaUrl" placeholder="https://example.com/video.mp4" dir="ltr" />
+      </div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div>
+        <label for="videoTitle">عنوان الفيديو (YouTube)</label>
+        <input id="videoTitle" placeholder="عنوان الفيديو" />
+      </div>
+      <div>
+        <label for="privacy">خصوصية يوتيوب</label>
+        <select id="privacy">
+          <option value="public">عام (public)</option>
+          <option value="unlisted">بغير قائمة (unlisted)</option>
+          <option value="private">خاص (private)</option>
+        </select>
+      </div>
+    </div>
+    <label for="caption" style="margin-top:12px">النص / الوصف</label>
+    <textarea id="caption" placeholder="اكتب نص البوست هنا..."></textarea>
+    <div style="margin-top:16px; display:flex; gap:10px; align-items:center">
+      <button onclick="publishAll()" id="publishBtn">🚀 انشر في الحسابات المختارة</button>
+      <span id="progress" style="font-size:13px;color:var(--muted)"></span>
+    </div>
+    <div class="results" id="results"></div>
+  </section>
+
+  <!-- متطلبات المنصات -->
+  <section class="card">
+    <h2>📋 متطلبات كل منصة قبل ما النشر ينفع فعليًا</h2>
+    <div class="note" style="margin-top:0; line-height:2.2">
+      <b>Facebook:</b> Meta App + Page Access Token طويل الأجل.<br />
+      <b>Instagram:</b> حساب Business/Creator مربوط بصفحة فيسبوك + Meta App معتمد.<br />
+      <b>Threads:</b> نفس Meta App + صلاحيات Threads API.<br />
+      <b>TikTok:</b> تطبيق مطور + اعتماد App Review لـ video.publish (بدونه الفيديو بينزل Draft فقط).<br />
+      <b>YouTube:</b> Google Cloud Project + OAuth token بصلاحية youtube.upload.<br />
+      <b>X:</b> اشتراك مدفوع (Basic فأعلى) — الـ Free tier مش بيسمح بالنشر.<br />
+      <b>WhatsApp:</b> ⚠️ مفيش API رسمي للنشر في Channels لغاية دلوقتي — الرسمي الوحيد هو Business Cloud API لإرسال رسائل مباشرة.
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  خُطوات مصر © 2026 — كل النشر بيتم عبر الـ APIs الرسمية لكل منصة<br />
+  التوكنات بتتخزن في متصفحك أنت بس (localStorage) ومش بتتبعت لأي سيرفر تاني غير API النشر الخاص بالمشروع
+</footer>
+
+<script>
+const PLATFORMS = {
+  facebook:  { label: "Facebook",  meta: [{ k: "pageId",         l: "Page ID" }],              note: "لازم Page Access Token (طويل الأجل) من Meta App معتمد." },
+  instagram: { label: "Instagram", meta: [{ k: "igUserId",       l: "IG User ID (Business)" }], note: "لازم حساب Business مربوط بصفحة فيسبوك، والتوكن Page Token." },
+  threads:   { label: "Threads",   meta: [{ k: "threadsUserId",  l: "Threads User ID" }],      note: "نفس الـ Meta App بصلاحيات Threads API." },
+  tiktok:    { label: "TikTok",    meta: [],                                                   note: "التطبيق لازم يكون معتمد من TikTok (App Review). لو مش معتمد، الفيديو بينزل Draft فقط." },
+  youtube:   { label: "YouTube",   meta: [],                                                   note: "OAuth token بصلاحية youtube.upload — وفيه كوتا يومية للرفع." },
+  x:         { label: "X",         meta: [],                                                   note: "النشر عبر API محتاج اشتراك X Basic مدفوع أو أعلى." },
+  whatsapp:  { label: "WhatsApp",  meta: [{ k: "waPhoneNumberId", l: "Phone Number ID" }],     note: "⚠️ النشر البرمجي في WhatsApp Channels غير مدعوم رسميًا من Meta حاليًا. المتاح رسميًا هو WhatsApp Business Cloud API لإرسال رسائل مباشرة فقط — أي أداة بتنشر في قنوات بتستخدم طرق غير رسمية عرضة للحظر." },
+};
+
+const LS_KEY = "5atwat_accounts";
+let accounts = JSON.parse(localStorage.getItem(LS_KEY) || "[]");
+
+function saveAccounts() { localStorage.setItem(LS_KEY, JSON.stringify(accounts)); }
+
+function renderMetaFields() {
+  const p = document.getElementById("platform").value;
+  const cfg = PLATFORMS[p];
+  const wrap = document.getElementById("metaFields");
+  wrap.innerHTML = cfg.meta.map(m => `
+    <div><label>${m.l}</label><input id="meta_${m.k}" dir="ltr" placeholder="${m.l}" /></div>
+  `).join("");
+  const note = document.getElementById("platformNote");
+  note.textContent = cfg.note;
+  note.style.display = "block";
+}
+
+function addAccount() {
+  const platform = document.getElementById("platform").value;
+  const name = document.getElementById("accountName").value.trim();
+  const token = document.getElementById("token").value.trim();
+  if (!name || !token) { alert("اكتب اسم الحساب والتوكن الأول"); return; }
+
+  const platformMeta = {};
+  PLATFORMS[platform].meta.forEach(m => {
+    const v = document.getElementById("meta_" + m.k)?.value.trim();
+    if (v) platformMeta[m.k] = v;
+  });
+
+  accounts.push({
+    accountId: Date.now() + "_" + Math.random().toString(36).slice(2, 7),
+    displayName: name,
+    platform,
+    accessToken: token,
+    platformMeta,
+  });
+  saveAccounts();
+  document.getElementById("accountName").value = "";
+  document.getElementById("token").value = "";
+  PLATFORMS[platform].meta.forEach(m => {
+    const el = document.getElementById("meta_" + m.k); if (el) el.value = "";
+  });
+  renderAccounts();
+}
+
+function removeAccount(id) {
+  accounts = accounts.filter(a => a.accountId !== id);
+  saveAccounts();
+  renderAccounts();
+}
+
+function renderAccounts() {
+  // قائمة الحسابات المحفوظة
+  const list = document.getElementById("accountsList");
+  list.innerHTML = accounts.length === 0
+    ? `<div class="empty">مفيش حسابات متضيفة لسه — ضيف أول حساب فوق 👆</div>`
+    : accounts.map(a => `
+      <div class="acc-item">
+        <span><b>${escapeHtml(a.displayName)}</b> &nbsp;<span class="badge">${PLATFORMS[a.platform].label}</span></span>
+        <button class="danger" onclick="removeAccount('${a.accountId}')">حذف</button>
+      </div>
+    `).join("");
+
+  // قائمة الاختيار في قسم النشر
+  const pick = document.getElementById("pickList");
+  pick.innerHTML = accounts.length === 0
+    ? `<div class="empty">ضيف حسابات الأول عشان تنشر فيها</div>`
+    : accounts.map(a => `
+      <div class="pick-item">
+        <label><input type="checkbox" value="${a.accountId}" checked /> ${escapeHtml(a.displayName)} <span class="badge">${PLATFORMS[a.platform].label}</span></label>
+      </div>
+    `).join("");
+}
+
+async function publishAll() {
+  const ids = Array.from(document.querySelectorAll("#pickList input:checked")).map(i => i.value);
+  const selected = accounts.filter(a => ids.includes(a.accountId));
+  if (selected.length === 0) { alert("اختار حساب واحد على الأقل"); return; }
+
+  const kind = document.getElementById("kind").value;
+  const caption = document.getElementById("caption").value.trim();
+  const mediaUrl = document.getElementById("mediaUrl").value.trim();
+
+  const resultsBox = document.getElementById("results");
+  resultsBox.style.display = "flex";
+  resultsBox.innerHTML = "";
+  const btn = document.getElementById("publishBtn");
+  btn.disabled = true;
+
+  let done = 0;
+  for (const acc of selected) {
+    const item = document.createElement("div");
+    item.className = "result-item";
+    item.innerHTML = `<span class="spinner"></span> <b>${escapeHtml(acc.displayName)}</b> (${PLATFORMS[acc.platform].label}) — جاري النشر...`;
+    resultsBox.appendChild(item);
+
+    try {
+      const res = await fetch("/api/publish", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          platform: acc.platform,
+          credentials: {
+            accountId: acc.accountId,
+            platform: acc.platform,
+            accessToken: acc.accessToken,
+            platformMeta: acc.platformMeta || {},
+          },
+          request: {
+            kind,
+            caption,
+            mediaUrl: mediaUrl || undefined,
+            videoTitle: document.getElementById("videoTitle").value.trim() || undefined,
+            privacy: document.getElementById("privacy").value,
+          },
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        item.className = "result-item success";
+        item.innerHTML = `✅ <b>${escapeHtml(acc.displayName)}</b> (${PLATFORMS[acc.platform].label}) — اتنشر بنجاح &nbsp;<code>ID: ${escapeHtml(String(data.externalId ?? ""))}</code>`;
+      } else {
+        item.className = "result-item fail";
+        item.innerHTML = `❌ <b>${escapeHtml(acc.displayName)}</b> (${PLATFORMS[acc.platform].label}) — فشل: <code>${escapeHtml(data.error || JSON.stringify(data))}</code>`;
+      }
+    } catch (e) {
+      item.className = "result-item fail";
+      item.innerHTML = `❌ <b>${escapeHtml(acc.displayName)}</b> — خطأ شبكة: ${escapeHtml(String(e))}`;
+    }
+    done++;
+    document.getElementById("progress").textContent = `${done} / ${selected.length}`;
+  }
+
+  btn.disabled = false;
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+}
+
+// فحص السيرفر عند التحميل
+(async () => {
+  try {
+    const r = await fetch("/api/health");
+    if (r.ok) {
+      document.getElementById("healthDot").classList.add("ok");
+      document.getElementById("healthText").textContent = "السيرفر شغّال ✅";
+    }
+  } catch {
+    document.getElementById("healthText").textContent = "مش قادر أوصل للسيرفر ❌";
+  }
+})();
+
+renderMetaFields();
+renderAccounts();
+</script>
+</body>
+</html>

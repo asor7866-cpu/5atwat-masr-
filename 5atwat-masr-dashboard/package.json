@@ -1,0 +1,20 @@
+{
+  "name": "5atwat-masr-social-media-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "5atwat Masr — Social Media Multi-Account Publishing Dashboard",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vercel dev",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "vercel": "^59.5.0"
+  }
+}

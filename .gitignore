@@ -1,0 +1,4 @@
+.vercel
+.env*
+*.mp4
+*.zip

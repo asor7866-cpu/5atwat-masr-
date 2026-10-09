@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>لوحة التحكم | الموسوعة السياحية المصرية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=9">
+  <link rel="stylesheet" href="css/admin.css?v=9">
+</head>
+<body class="admin-body">
+
+  <!-- بوابة الدخول (معطلة — الدخول مباشر) -->
+  <div class="gate" id="gate" hidden>
+    <div class="gate-card">
+      <div class="gate-icon">🔐</div>
+      <h1>لوحة التحكم</h1>
+      <p>الموسوعة السياحية المصرية</p>
+      <div class="pass-wrap">
+        <input type="password" id="gatePass" placeholder="اكتب: admin123 (بالإنجليزية)" autocomplete="off" spellcheck="false">
+        <button type="button" id="togglePass" title="إظهار كلمة المرور">👁️</button>
+      </div>
+      <button id="gateBtn" class="btn-gold">دخول</button>
+      <button id="resetPass" class="gate-reset">نسيت كلمة المرور؟ إعادة تعيين لـ admin123</button>
+      <p class="gate-hint">كلمة المرور الافتراضية: <bdi>admin123</bdi> — تأكد إن الكيبورد إنجليزي</p>
+      <a class="gate-back" href="/">← العودة للموقع</a>
+    </div>
+  </div>
+
+  <!-- اللوحة -->
+  <div class="admin" id="admin" hidden>
+    <header class="admin-top">
+      <div class="admin-brand">🇪🇬 لوحة التحكم — الموسوعة السياحية</div>
+      <div class="admin-actions">
+        <button class="btn-ghost" id="btnExportJson" title="تنزيل نسخة احتياطية">💾 تصدير JSON</button>
+        <button class="btn-ghost" id="btnExportJs" title="ملف جاهز للنشر للجميع">📦 تصدير data.js</button>
+        <button class="btn-ghost" id="btnImport">📥 استيراد</button>
+        <button class="btn-ghost" id="btnPass">🔑 كلمة المرور</button>
+        <a class="btn-ghost" href="/" target="_blank">🌐 عرض الموقع</a>
+      </div>
+    </header>
+
+    <!-- كروت الإحصائيات -->
+    <div class="admin-stats" id="adminStats"></div>
+
+    <nav class="admin-tabs" id="adminTabs">
+      <button class="atab active" data-t="GOVERNORATES">🗺️ المحافظات <span id="cGOVERNORATES"></span></button>
+      <button class="atab" data-t="MUSEUMS">🏛️ المتاحف <span id="cMUSEUMS"></span></button>
+      <button class="atab" data-t="LANDMARKS">🏺 المعالم <span id="cLANDMARKS"></span></button>
+      <button class="atab" data-t="NEWS">📰 الأخبار <span id="cNEWS"></span></button>
+    </nav>
+
+    <main class="admin-main">
+      <aside class="admin-list" id="itemList"></aside>
+      <section class="admin-editor" id="editor">
+        <div class="editor-empty">
+          <div class="editor-empty-icon">👈</div>
+          <p>اختر عنصراً من القائمة للتعديل<br>أو أضف عنصراً جديداً</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <input type="file" id="importFile" accept=".json" hidden>
+
+  <script src="js/data/base.js?v=9"></script>
+  <script src="js/data/gov-a.js?v=9"></script>
+  <script src="js/data/gov-b.js?v=9"></script>
+  <script src="js/data/gov-c.js?v=9"></script>
+  <script src="js/data/gov-d.js?v=9"></script>
+  <script src="js/data/museums-a.js?v=9"></script>
+  <script src="js/data/museums-b.js?v=9"></script>
+  <script src="js/data/landmarks-a.js?v=9"></script>
+  <script src="js/data/landmarks-b.js?v=9"></script>
+  <script src="js/data/news.js?v=9"></script>
+  <script src="js/data/boost2-museums.js?v=9"></script>
+  <script src="js/data/new-museums.js?v=9"></script>
+  <script src="js/data/new-landmarks-a.js?v=9"></script>
+  <script src="js/data/new-landmarks-b.js?v=9"></script>
+  <script src="js/data/new-places.js?v=9"></script>
+  <script src="js/data/images.js?v=9"></script>
+  <script src="js/data/boost.js?v=9"></script>
+  <script src="js/data/custom.js?v=9"></script>
+  <script src="js/admin.js?v=9"></script>
+</body>
+</html>
+
+
+
+
+
+

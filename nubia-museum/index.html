@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="الموسوعة السياحية الشاملة لمصر: دليلك الكامل لـ27 محافظة مصرية بأكثر من 3600 معلومة موثقة، أشهر المتاحف والآثار والمعالم السياحية وآخر الأخبار — من الأهرامات إلى أبو سمبل">
+  <meta name="theme-color" content="#0e1a33">
+
+  <!-- Open Graph (المعاينة عند المشاركة على فيسبوك/واتساب) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="مصر | الموسوعة السياحية">
+  <meta property="og:title" content="مصر | كل ما تحتاجه عن السياحة في مصر في مصدر واحد">
+  <meta property="og:description" content="27 محافظة • متاحف عريقة • أعظم الآثار • أخبار السياحة — موسوعة شاملة بمعلومات موثقة">
+  <meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Great_Pyramid_of_Giza_-_Pyramid_of_Khufu.jpg/960px-Great_Pyramid_of_Giza_-_Pyramid_of_Khufu.jpg">
+  <meta property="og:locale" content="ar_EG">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="مصر | الموسوعة السياحية الشاملة">
+  <meta name="twitter:description" content="27 محافظة ومتاحف وآثار وأخبار — أكثر من 3600 معلومة موثقة عن السياحة المصرية">
+
+  <!-- PWA + أيقونة -->
+  <meta name="google-site-verification" content="googlec6a81e2984153661">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- بيانات منظمة لمحركات البحث -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "مصر | الموسوعة السياحية الشاملة",
+    "inLanguage": "ar",
+    "description": "دليل سياحي شامل لمحافظات ومتاحف وآثار مصر",
+    "about": [
+      { "@type": "TouristDestination", "name": "مصر", "description": "أكثر من 3600 معلومة سياحية موثقة" },
+      { "@type": "TouristAttraction", "name": "أهرامات الجيزة" },
+      { "@type": "TouristAttraction", "name": "معابد الكرنك بالأقصر" },
+      { "@type": "TouristAttraction", "name": "معابد أبو سمبل بأسوان" },
+      { "@type": "TouristAttraction", "name": "المتحف المصري الكبير" }
+    ]
+  }
+  </script>
+  <title>مصر | الموسوعة السياحية الشاملة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=9">
+</head>
+<body>
+
+  <!-- شريط تقدم القراءة -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- ===== شريط التنقل ===== -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a class="brand" href="#home">
+        <span class="brand-icon">🇪🇬</span>
+        <span class="brand-text">مصر<span class="brand-sub">الموسوعة السياحية</span></span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#home" class="active">الرئيسية</a>
+        <a href="#governorates">المحافظات</a>
+        <a href="#museums">المتاحف</a>
+        <a href="#landmarks">الآثار والمعالم</a>
+        <a href="#news">الأخبار</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" title="تبديل الوضع الليلي" aria-label="تبديل الوضع الليلي">🌙</button>
+        <button class="menu-btn" id="menuBtn" aria-label="القائمة">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== الواجهة الرئيسية ===== -->
+  <section class="hero" id="home">
+    <div class="hero-stars" aria-hidden="true"></div>
+    <div class="hero-particles" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="container hero-content">
+      <p class="hero-kicker">أهلاً بك في مصر 🇪🇬 أم الدنيا</p>
+      <h1>كل ما تحتاجه عن <span class="gold">السياحة في مصر</span><br>في مصدر واحد شامل</h1>
+      <p class="hero-sub">
+        دليلك الكامل لـ 27 محافظة، أشهر المتاحف، أعظم الآثار، وآخر الأخبار السياحية —
+        من أهرامات الجيزة إلى شواطئ البحر الأحمر.
+      </p>
+
+      <div class="search-box" id="searchBox">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="ابحث عن محافظة أو متحف أو معلم... مثال: الأقصر"
+               autocomplete="off">
+        <button class="search-clear" id="searchClear" hidden title="مسح البحث">✕</button>
+      </div>
+      <div class="search-hint" id="searchHint"></div>
+
+      <div class="stats" id="stats">
+        <div class="stat"><b data-count="27">0</b><span>محافظة</span></div>
+        <div class="stat"><b data-count="0" id="statMuseums">0</b><span>متحفاً بارزاً</span></div>
+        <div class="stat"><b data-count="0" id="statLandmarks">0</b><span>معلماً شهيراً</span></div>
+        <div class="stat"><b data-count="7000">0</b><span>+ سنة حضارة</span></div>
+        <div class="stat"><b data-count="0" id="statFacts">0</b><span>معلومة موثقة</span></div>
+      </div>
+    </div>
+
+    <!-- سلسلة جبال الأهرامات -->
+    <svg class="pyramids-svg" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="currentColor" opacity=".25" d="M0 220 L180 90 L360 220 Z M300 220 L520 40 L740 220 Z"/>
+      <path fill="currentColor" opacity=".45" d="M620 220 L860 20 L1100 220 Z"/>
+      <path fill="currentColor" opacity=".3" d="M1020 220 L1220 100 L1420 220 Z"/>
+      <rect y="215" width="1440" height="5" fill="currentColor"/>
+    </svg>
+  </section>
+
+  <main>
+    <!-- ===== نتائج البحث ===== -->
+    <section class="section search-results-section" id="searchResultsSection" hidden>
+      <div class="container">
+        <div class="results-banner">
+          <h2 id="resultsTitle">نتائج البحث</h2>
+          <p id="resultsCount"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== المحافظات ===== -->
+    <section class="section" id="governorates">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="section-tag">🗺️ اكتشف مصر</span>
+          <h2>المحافظات المصرية</h2>
+          <p>27 محافظة من البحر المتوسط إلى أسوان؛ كل واحدة لها حكايتها ومعالمها وسحرها الخاص. اختر منطقة أو اضغط على أي محافظة لعرض التفاصيل الكاملة.</p>
+        </header>
+
+        <div class="chips" id="regionChips">
+          <button class="chip active" data-region="all">الكل (27)</button>
+          <!-- تُبنى باقي الفلاتر بالجافاسكريبت -->
+        </div>
+
+        <div class="grid gov-grid" id="govGrid"></div>
+        <p class="empty-msg" id="govEmpty" hidden>لا توجد محافظات مطابقة 🔍 جرّب كلمة أخرى.</p>
+      </div>
+    </section>
+
+    <!-- ===== المتاحف ===== -->
+    <section class="section section-alt" id="museums">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="section-tag">🏛️ كنوز الحضارة</span>
+          <h2>أشهر المتاحف</h2>
+          <p>من المتحف المصري الكبير — أكبر متحف في العالم لحضارة واحدة — إلى متحف النوبة؛ رحلة عبر آلاف السنين من الفن والتاريخ.</p>
+        </header>
+        <div class="grid museum-grid" id="museumGrid"></div>
+        <p class="empty-msg" id="museumEmpty" hidden>لا توجد متاحف مطابقة 🔍 جرّب كلمة أخرى.</p>
+      </div>
+    </section>
+
+    <!-- ===== الآثار والمعالم ===== -->
+    <section class="section" id="landmarks">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="section-tag">🏺 عجائب لا تُنسى</span>
+          <h2>الآثار والمعالم السياحية</h2>
+          <p>آخر عجائب الدنيا القديمة، أكبر مجمع ديني في العالم، أقدم دير مأهول، وأجمل محميات طبيعية — كلها هنا.</p>
+        </header>
+        <div class="chips" id="landmarkTypeChips"></div>
+        <div class="grid landmark-grid" id="landmarkGrid"></div>
+        <p class="empty-msg" id="landmarkEmpty" hidden>لا توجد معالم مطابقة 🔍 جرّب كلمة أخرى.</p>
+      </div>
+    </section>
+
+    <!-- ===== الأخبار ===== -->
+    <section class="section section-alt" id="news">
+      <div class="container">
+        <header class="section-head reveal">
+          <span class="section-tag">📰 آخر المستجدات</span>
+          <h2>الأخبار السياحية</h2>
+          <p>آخر أخبار الافتتاحات والترميم والإحصائيات والفعاليات في قطاع السياحة المصرية.</p>
+        </header>
+        <div class="news-list" id="newsList"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== التذييل ===== -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <a class="brand light" href="#home">
+          <span class="brand-icon">🇪🇬</span>
+          <span class="brand-text">مصر<span class="brand-sub">الموسوعة السياحية</span></span>
+        </a>
+        <p>مصدر معلومات شامل لتطبيق سياحي يغطي كل المحافظات والمتاحف والآثار والأخبار في جمهورية مصر العربية.</p>
+      </div>
+      <div class="footer-col">
+        <h4>روابط سريعة</h4>
+        <ul>
+          <li><a href="#governorates">المحافظات</a></li>
+          <li><a href="#museums">المتاحف</a></li>
+          <li><a href="#landmarks">الآثار والمعالم</a></li>
+          <li><a href="#news">الأخبار</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>أبرز الوجهات</h4>
+        <ul>
+          <li><a href="#" data-goto="luxor">الأقصر</a></li>
+          <li><a href="#" data-goto="aswan">أسوان</a></li>
+          <li><a href="#" data-goto="giza">الجيزة والأهرامات</a></li>
+          <li><a href="#" data-goto="south-sinai">جنوب سيناء</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>روابط رسمية</h4>
+        <ul>
+          <li><a href="https://www.egypt.travel/" target="_blank" rel="noopener">🇪🇬 بوابة مصر للسياحة</a></li>
+          <li><a href="https://whc.unesco.org/en/statesparties/eg" target="_blank" rel="noopener">🌍 تراث مصر في اليونسكو</a></li>
+          <li><a href="https://ar.wikipedia.org/wiki/بوابة:مصر" target="_blank" rel="noopener">📖 بوابة مصر في ويكيبيديا</a></li>
+          <li><a href="https://www.google.com/maps/search/?api=1&query=مصر+السياحية" target="_blank" rel="noopener">🗺️ مصر على خرائط جوجل</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>معلومات مهمة</h4>
+        <ul class="info-list">
+          <li>☎️ الخط الساخن للسياحة: <bdi>19654</bdi></li>
+          <li>🛂 تأشيرة الزيارة متاحة عند الوصول</li>
+          <li>🕐 المواقع الأثرية: 7 صباحاً - 5 مساءً</li>
+          <li>💳 البيانات المعروضة تقديرية لأغراض العرض</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        صُنع بـ ❤️ لعشاق مصر — جميع البيانات لأغراض عرض وتطوير التطبيقات السياحية © 2026
+        <a href="/admin.html" title="لوحة التحكم" style="color:inherit;opacity:.5;text-decoration:none;margin-inline-start:8px">🔒</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== نافذة التفاصيل ===== -->
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modalClose" aria-label="إغلاق">✕</button>
+      <div class="modal-head" id="modalHead"></div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <button class="to-top" id="toTop" aria-label="العودة للأعلى">↑</button>
+
+  <script src="js/data/base.js?v=9"></script>
+  <script src="js/data/gov-a.js?v=9"></script>
+  <script src="js/data/gov-b.js?v=9"></script>
+  <script src="js/data/gov-c.js?v=9"></script>
+  <script src="js/data/gov-d.js?v=9"></script>
+  <script src="js/data/museums-a.js?v=9"></script>
+  <script src="js/data/museums-b.js?v=9"></script>
+  <script src="js/data/landmarks-a.js?v=9"></script>
+  <script src="js/data/landmarks-b.js?v=9"></script>
+  <script src="js/data/news.js?v=9"></script>
+  <script src="js/data/boost2-museums.js?v=9"></script>
+  <script src="js/data/new-museums.js?v=9"></script>
+  <script src="js/data/new-landmarks-a.js?v=9"></script>
+  <script src="js/data/new-landmarks-b.js?v=9"></script>
+  <script src="js/data/new-places.js?v=9"></script>
+  <script src="js/data/images.js?v=9"></script>
+  <script src="js/data/boost.js?v=9"></script>
+  <script src="js/data/custom.js?v=9"></script>
+  <script src="js/app.js?v=9"></script>
+</body>
+</html>
+
+
+
+

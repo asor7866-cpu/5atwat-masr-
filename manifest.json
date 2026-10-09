@@ -1,0 +1,21 @@
+{
+  "name": "مصر | الموسوعة السياحية الشاملة",
+  "short_name": "مصر سياحة",
+  "description": "دليلك الكامل لـ27 محافظة ومتاحف مصر وآثارها وأخبارها السياحية",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./index.html",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0e1a33",
+  "theme_color": "#0e1a33",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
